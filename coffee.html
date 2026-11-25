@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapters & Charms - Your Neighborhood Bookstore & Café</title>
+    <meta name="description" content="Chapters & Charms - Your cozy neighborhood bookstore with cafe">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Design system colors (HSL) */
+            --background: hsl(45, 20%, 97%);
+            --foreground: hsl(25, 25%, 15%);
+            --card: hsl(42, 15%, 95%);
+            --primary: hsl(25, 60%, 35%);
+            --primary-foreground: hsl(45, 25%, 95%);
+            --secondary: hsl(45, 15%, 88%);
+            --muted-foreground: hsl(25, 15%, 45%);
+            --accent: hsl(140, 30%, 25%);
+            --accent-foreground: hsl(45, 25%, 95%);
+            --border: hsl(45, 15%, 85%);
+            --warm-secondary: hsl(45, 25%, 85%);
+            --parchment: hsl(45, 20%, 97%);
+            --leather-brown: hsl(20, 40%, 25%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        .nav {
+            background: linear-gradient(135deg, hsl(25, 40%, 20%), hsl(25, 60%, 35%));
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--parchment);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--warm-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--parchment);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, hsl(25, 60%, 35%), hsl(45, 50%, 45%));
+            color: var(--primary-foreground);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--warm-secondary);
+            color: var(--warm-secondary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--warm-secondary);
+            color: var(--leather-brown);
+        }
+
+        .btn-lg {
+            padding: 0.75rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        /* Layout */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, hsl(25, 40%, 20%) 0%, hsl(25, 60%, 35%) 50%, hsl(45, 50%, 45%) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--parchment);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 32rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .gradient-subtle {
+            background: linear-gradient(180deg, hsl(45, 20%, 97%), hsl(45, 15%, 92%));
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+        @media (max-width: 768px) {
+            .grid-cols-2,
+            .grid-cols-3,
+            .grid-cols-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px hsla(25, 30%, 20%, 0.15);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px hsla(25, 30%, 20%, 0.2);
+        }
+
+        .text-center { text-align: center; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-16 { margin-top: 4rem; }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Shop page specific */
+        .search-container {
+            max-width: 28rem;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-foreground);
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--leather-brown);
+            color: var(--parchment);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--parchment);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--leather-brown);
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Icons (simple CSS shapes) */
+        .icon {
+            width: 2rem;
+            height: 2rem;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .book-card {
+            background: var(--card);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .rating {
+            color: #ffd700;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="logo" onclick="showPage('home')">Chapters & Charms</a>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#" class="nav-link active" onclick="showPage('home')" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" onclick="showPage('about')" data-page="about">About</a></li>
+                    <li><a href="#" class="nav-link" onclick="showPage('shop')" data-page="shop">Shop</a></li>
+                    <li><a href="#" class="nav-link" onclick="showPage('cafe')" data-page="cafe">Café</a></li>
+                    <li><a href="#" class="nav-link" onclick="showPage('contact')" data-page="contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Welcome to<br><span style="color: var(--warm-secondary);">Chapters & Charms</span></h1>
+                <p>Where stories come alive and coffee perfects the reading experience. Discover your next favorite book in our cozy literary haven.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="#" class="btn btn-primary btn-lg" onclick="showPage('shop')">Browse Our Collection</a>
+                    <a href="#" class="btn btn-outline btn-lg" onclick="showPage('cafe')">Visit Our Café</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Books -->
+        <section class="section gradient-subtle">
+            <div class="container">
+                <div class="text-center mb-12">
+                    <h2>Featured Books</h2>
+                    <p style="color: var(--muted-foreground); font-size: 1.125rem;">Discover our staff picks and bestsellers, carefully selected to ignite your imagination</p>
+                </div>
+
+                <div class="grid grid-cols-4" style="margin-bottom: 3rem;">
+                    <div class="book-card">
+                        <div class="book-cover">📖</div>
+                        <h3>The Midnight Library</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 0.5rem;">by Matt Haig</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="background: var(--secondary); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.875rem;">Fiction</span>
+                            <div class="rating">★ 4.8</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">📚</div>
+                        <h3>Atomic Habits</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 0.5rem;">by James Clear</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="background: var(--secondary); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.875rem;">Self-Help</span>
+                            <div class="rating">★ 4.9</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">📖</div>
+                        <h3>The Seven Husbands</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 0.5rem;">by Taylor Jenkins Reid</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="background: var(--secondary); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.875rem;">Fiction</span>
+                            <div class="rating">★ 4.7</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">🔍</div>
+                        <h3>Where the Crawdads Sing</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 0.5rem;">by Delia Owens</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="background: var(--secondary); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.875rem;">Mystery</span>
+                            <div class="rating">★ 4.6</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="#" class="btn btn-primary btn-lg" onclick="showPage('shop')">View All Books</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-12">
+                    <h2>Why Choose Us?</h2>
+                    <p style="color: var(--muted-foreground); font-size: 1.125rem;">More than just a bookstore - we're a community of readers, dreamers, and coffee enthusiasts</p>
+                </div>
+
+                <div class="grid grid-cols-4">
+                    <div class="text-center">
+                        <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem;">📚</div>
+                        <h3>Curated Collection</h3>
+                        <p style="color: var(--muted-foreground);">Handpicked books from bestsellers to hidden gems across all genres</p>
+                    </div>
+                    <div class="text-center">
+                        <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem;">☕</div>
+                        <h3>Cozy Café</h3>
+                        <p style="color: var(--muted-foreground);">Freshly brewed coffee and homemade pastries in a reading-friendly atmosphere</p>
+                    </div>
+                    <div class="text-center">
+                        <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem;">❤️</div>
+                        <h3>Community Hub</h3>
+                        <p style="color: var(--muted-foreground);">Book clubs, author events, and literary discussions for book lovers</p>
+                    </div>
+                    <div class="text-center">
+                        <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem;">⭐</div>
+                        <h3>Rare Editions</h3>
+                        <p style="color: var(--muted-foreground);">Vintage and collectible books for serious collectors and enthusiasts</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="section" style="background: linear-gradient(135deg, hsl(25, 40%, 20%) 0%, hsl(25, 60%, 35%) 50%, hsl(45, 50%, 45%) 100%); text-align: center; color: var(--parchment);">
+            <div class="container">
+                <h1 class="font-serif" style="font-size: 3rem; margin-bottom: 1.5rem;">Our Story</h1>
+                <p style="font-size: 1.125rem;">Born from a love of literature and community, Chapters & Charms has been bringing stories to life since 2010</p>
+            </div>
+        </section>
+
+        <section class="section gradient-subtle">
+            <div class="container">
+                <div class="card text-center">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem;">📖</div>
+                    <h2>Where It All Began</h2>
+                    <div style="text-align: left; color: var(--muted-foreground); line-height: 1.8;">
+                        <p style="margin-bottom: 1.5rem;">In 2020, Sarah Mitchell had a simple dream: to create a space where book lovers could not only discover their next great read but also connect with fellow bibliophiles over a perfectly brewed cup of coffee. What started as a small collection of carefully curated books in a cozy corner space has grown into the beloved community hub you see today.</p>
+                        <p style="margin-bottom: 1.5rem;">Our name, "Chapters & Charms," reflects our belief that every book contains both the chapters that tell a story and the unique charm that makes it special. Just like our customers, each book has its own personality, its own magic waiting to be discovered.</p>
+                        <p>Today, we pride ourselves on being more than just a bookstore. We're a place where students find quiet study corners, where book clubs gather for lively discussions, where authors share their latest works, and where anyone can escape into the pages of a good book while savoring the aroma of freshly ground coffee beans.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="text-center mb-12">
+                    <h2>Meet Our Team</h2>
+                    <p style="color: var(--muted-foreground); font-size: 1.125rem;">The passionate individuals who make Chapters & Charms a special place</p>
+                </div>
+
+                <div class="grid grid-cols-3">
+                    <div class="card text-center">
+                        <div style="width: 5rem; height: 5rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">👩</div>
+                        <h3>Sarah Mitchell</h3>
+                        <p style="color: var(--accent); font-weight: 500; margin-bottom: 0.75rem;">Founder & Head Curator</p>
+                        <p style="color: var(--muted-foreground); font-size: 0.875rem;">A lifelong bibliophile with 15 years in literary curation</p>
+                    </div>
+                    <div class="card text-center">
+                        <div style="width: 5rem; height: 5rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">👨</div>
+                        <h3>Marcus Chen</h3>
+                        <p style="color: var(--accent); font-weight: 500; margin-bottom: 0.75rem;">Café Manager</p>
+                        <p style="color: var(--muted-foreground); font-size: 0.875rem;">Master barista and coffee enthusiast creating the perfect reading atmosphere</p>
+                    </div>
+                    <div class="card text-center">
+                        <div style="width: 5rem; height: 5rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">👩</div>
+                        <h3>Elena Rodriguez</h3>
+                        <p style="color: var(--accent); font-weight: 500; margin-bottom: 0.75rem;">Rare Books Specialist</p>
+                        <p style="color: var(--muted-foreground); font-size: 0.875rem;">Expert in vintage and collectible editions with a passion for literary history</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Shop Page -->
+    <div id="shop" class="page">
+        <section class="section" style="background: linear-gradient(135deg, hsl(25, 40%, 20%) 0%, hsl(25, 60%, 35%) 50%, hsl(45, 50%, 45%) 100%); text-align: center; color: var(--parchment);">
+            <div class="container">
+                <h1 class="font-serif" style="font-size: 3rem; margin-bottom: 1rem;">Browse Our Collection</h1>
+                <p style="font-size: 1.125rem;">Discover your next favorite book from our carefully curated selection</p>
+            </div>
+        </section>
+
+        <section class="section gradient-subtle">
+            <div class="container">
+                <!-- Search -->
+                <div class="search-container">
+                    <div style="position: relative;">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search books or authors..." oninput="filterBooks()">
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters">
+                    <button class="filter-btn active" onclick="filterByCategory('All')">All</button>
+                    <button class="filter-btn" onclick="filterByCategory('Fiction')">Fiction</button>
+                    <button class="filter-btn" onclick="filterByCategory('Non-Fiction')">Non-Fiction</button>
+                    <button class="filter-btn" onclick="filterByCategory('Children')">Children</button>
+                    <button class="filter-btn" onclick="filterByCategory('Rare')">Rare</button>
+                    <button class="filter-btn" onclick="filterByCategory('Mystery')">Mystery</button>
+                    <button class="filter-btn" onclick="filterByCategory('Romance')">Romance</button>
+                    <button class="filter-btn" onclick="filterByCategory('Sci-Fi')">Sci-Fi</button>
+                </div>
+
+                <!-- Results count -->
+                <div class="text-center mb-6">
+                    <p id="resultsCount" style="color: var(--muted-foreground);">Showing all books</p>
+                </div>
+
+                <!-- Books Grid -->
+                <div id="booksGrid" class="grid grid-cols-4">
+                    <!-- Books will be populated by JavaScript -->
+                </div>
+
+                <!-- Empty state -->
+                <div id="emptyState" class="text-center mt-8" style="display: none;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">📚</div>
+                    <h3>No books found</h3>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Try adjusting your search terms or browse a different category</p>
+                    <button class="btn btn-primary" onclick="clearFilters()">Clear Filters</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Cafe Page -->
+    <div id="cafe" class="page">
+        <section class="section" style="background: linear-gradient(135deg, hsl(25, 40%, 20%) 0%, hsl(25, 60%, 35%) 50%, hsl(45, 50%, 45%) 100%); text-align: center; color: var(--parchment);">
+            <div class="container">
+                <h1 class="font-serif" style="font-size: 3rem; margin-bottom: 1rem;">Café Menu</h1>
+                <p style="font-size: 1.125rem;">Fuel your reading adventures with our carefully crafted coffee and treats</p>
+            </div>
+        </section>
+
+        <section class="section gradient-subtle">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem;">
+                    <div>
+                        <h2>Where Coffee Meets Literature</h2>
+                        <p style="color: var(--muted-foreground); font-size: 1.125rem; margin-bottom: 1.5rem; line-height: 1.6;">Our café isn't just about great coffee – it's about creating the perfect atmosphere for reading, thinking, and connecting with fellow book lovers.</p>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <span style="color: var(--accent);">📶</span>
+                                <span><strong>Free WiFi</strong> - Stay connected while you read</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <span style="color: var(--accent);">📚</span>
+                                <span><strong>Reading Nooks</strong> - Cozy corners perfect for diving into a good book</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="color: var(--accent);">🕒</span>
+                                <span><strong>Extended Hours</strong> - Open early for morning readers, late for night owls</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: var(--card); height: 300px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">☕📚</div>
+                </div>
+
+                <!-- Menu Sections -->
+                <div style="margin-bottom: 3rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+                        <div style="width: 3rem; height: 3rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">☕</div>
+                        <h2>Coffee & Espresso</h2>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Chapter Blend</h3>
+                                <span class="price">$3.50</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Our signature house coffee - smooth and full-bodied</p>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Literary Latte</h3>
+                                <span class="price">$5.25</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Vanilla latte with cinnamon and a dash of inspiration</p>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Cappuccino</h3>
+                                <span class="price">$4.25</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Equal parts espresso, steamed milk, and foam</p>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Mystery Mocha</h3>
+                                <span class="price">$5.75</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Dark chocolate mocha with a secret spice blend</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 3rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+                        <div style="width: 3rem; height: 3rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🍪</div>
+                        <h2>Pastries & Treats</h2>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Bookmark Biscotti</h3>
+                                <span class="price">$2.50</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Perfect for dipping in your favorite coffee</p>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Chapter Croissant</h3>
+                                <span class="price">$3.25</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Buttery, flaky, and fresh from our oven</p>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Story Scone</h3>
+                                <span class="price">$3.75</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Blueberry or cranberry with clotted cream</p>
+                        </div>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3>Happy Ending Cake</h3>
+                                <span class="price">$4.50</span>
+                            </div>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Slice of our daily featured cake</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hours & Info -->
+                <div class="grid grid-cols-2 mt-16">
+                    <div class="card">
+                        <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                            <span style="color: var(--accent);">🕒</span>
+                            Café Hours
+                        </h3>
+                        <div style="margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                            <span style="color: var(--muted-foreground);">Monday - Friday</span>
+                            <span style="font-weight: 500;">7:00 AM - 7:00 PM</span>
+                        </div>
+                        <div style="margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                            <span style="color: var(--muted-foreground);">Saturday</span>
+                            <span style="font-weight: 500;">8:00 AM - 8:00 PM</span>
+                        </div>
+                        <div style="margin-bottom: 1rem; display: flex; justify-content: space-between;">
+                            <span style="color: var(--muted-foreground);">Sunday</span>
+                            <span style="font-weight: 500;">8:00 AM - 5:00 PM</span>
+                        </div>
+                        <p style="font-size: 0.75rem; color: var(--muted-foreground);">* Last food orders 30 minutes before closing</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                            <span style="color: var(--accent);">❤️</span>
+                            Special Features
+                        </h3>
+                        <div style="margin-bottom: 0.75rem;">
+                            <p style="font-weight: 500; margin-bottom: 0.25rem;">Book Club Discounts</p>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">15% off for reading groups of 4+</p>
+                        </div>
+                        <div style="margin-bottom: 0.75rem;">
+                            <p style="font-weight: 500; margin-bottom: 0.25rem;">Study Hours</p>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Quiet zone from 2-5 PM weekdays</p>
+                        </div>
+                        <div>
+                            <p style="font-weight: 500; margin-bottom: 0.25rem;">Local Sourcing</p>
+                            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Coffee beans roasted weekly in town</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="section" style="background: linear-gradient(135deg, hsl(25, 40%, 20%) 0%, hsl(25, 60%, 35%) 50%, hsl(45, 50%, 45%) 100%); text-align: center; color: var(--parchment);">
+            <div class="container">
+                <h1 class="font-serif" style="font-size: 3rem; margin-bottom: 1rem;">Contact Us</h1>
+                <p style="font-size: 1.125rem;">We'd love to hear from you! Reach out with questions, recommendations, or just to say hello</p>
+            </div>
+        </section>
+
+        <section class="section gradient-subtle">
+            <div class="container">
+                <!-- Contact Info -->
+                <div class="grid grid-cols-3 mb-12">
+                    <div class="card text-center">
+                        <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem;">📍</div>
+                        <h3>Visit Our Store</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 1rem;">123 Literature Lane<br>Booktown, BT 12345</p>
+                        <button class="btn btn-outline">Get Directions</button>
+                    </div>
+                    <div class="card text-center">
+                        <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem;">📞</div>
+                        <h3>Call Us</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 1rem;">(555) 123-BOOK<br>(555) 123-2665</p>
+                        <button class="btn btn-outline">Call Now</button>
+                    </div>
+                    <div class="card text-center">
+                        <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem;">✉️</div>
+                        <h3>Email Us</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 1rem;">chaptersandcharms@gmail.com<br>events@chaptersandcharms.com</p>
+                        <button class="btn btn-outline">Send Email</button>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                    <!-- Contact Form -->
+                    <div class="card">
+                        <h2 style="margin-bottom: 1.5rem;">Send Us a Message</h2>
+                        <form onsubmit="submitForm(event)">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-input" required placeholder="Your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-input" required placeholder="your.email@example.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <input type="text" class="form-input" required placeholder="What's this about?">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-textarea" required placeholder="Tell us what's on your mind..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- Store Info -->
+                    <div>
+                        <div class="card" style="margin-bottom: 1.5rem;">
+                            <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                                <span style="color: var(--accent);">🕒</span>
+                                Store Hours
+                            </h3>
+                            <div style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
+                                <span style="color: var(--muted-foreground);">Monday - Friday</span>
+                                <span style="font-weight: 500;">9:00 AM - 8:00 PM</span>
+                            </div>
+                            <div style="margin-bottom: 0.75rem; display: flex; justify-content: space-between;">
+                                <span style="color: var(--muted-foreground);">Saturday</span>
+                                <span style="font-weight: 500;">10:00 AM - 9:00 PM</span>
+                            </div>
+                            <div style="margin-bottom: 1rem; display: flex; justify-content: space-between;">
+                                <span style="color: var(--muted-foreground);">Sunday</span>
+                                <span style="font-weight: 500;">10:00 AM - 6:00 PM</span>
+                            </div>
+                            <div style="border-top: 1px solid var(--border); padding-top: 0.75rem; font-size: 0.875rem; color: var(--muted-foreground);">
+                                <p>Café closes 1 hour before store closing time</p>
+                                <p>Holiday hours may vary - please call ahead</p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                                <span style="color: var(--accent);">📍</span>
+                                Find Us
+                            </h3>
+                            <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); height: 16rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                                <div style="text-align: center; color: white;">
+                                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">📍</div>
+                                    <p style="font-weight: 500;">Interactive Map</p>
+                                    <p style="font-size: 0.875rem; opacity: 0.9;">123 Literature Lane, Booktown</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" style="width: 100%; margin-bottom: 0.5rem;">Open in Google Maps</button>
+                            <p style="font-size: 0.875rem; color: var(--muted-foreground); text-align: center;">Free parking available behind the building</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Chapters & Charms. All rights reserved. | Made with ❤️ for book lovers everywhere.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Books data
+        const books = [
+            { id: 1, title: "The Midnight Library", author: "Matt Haig", category: "Fiction", price: 16.99, rating: 4.8, inStock: true },
+            { id: 2, title: "Atomic Habits", author: "James Clear", category: "Non-Fiction", price: 18.99, rating: 4.9, inStock: true },
+            { id: 3, title: "Where the Crawdads Sing", author: "Delia Owens", category: "Mystery", price: 15.99, rating: 4.6, inStock: true },
+            { id: 4, title: "The Very Hungry Caterpillar", author: "Eric Carle", category: "Children", price: 8.99, rating: 4.9, inStock: true },
+            { id: 5, title: "Pride and Prejudice (First Edition)", author: "Jane Austen", category: "Rare", price: 2499.99, rating: 5.0, inStock: true },
+            { id: 6, title: "The Seven Husbands of Evelyn Hugo", author: "Taylor Jenkins Reid", category: "Romance", price: 14.99, rating: 4.7, inStock: false },
+            { id: 7, title: "Dune", author: "Frank Herbert", category: "Sci-Fi", price: 17.99, rating: 4.5, inStock: true },
+            { id: 8, title: "Becoming", author: "Michelle Obama", category: "Biography", price: 19.99, rating: 4.8, inStock: true }
+        ];
+
+        let currentCategory = 'All';
+        let currentSearch = '';
+
+        // Navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+
+            // Initialize shop page if needed
+            if (pageId === 'shop') {
+                displayBooks();
+            }
+
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Shop page functions
+        function displayBooks() {
+            const filteredBooks = books.filter(book => {
+                const matchesSearch = currentSearch === '' || 
+                    book.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    book.author.toLowerCase().includes(currentSearch.toLowerCase());
+                const matchesCategory = currentCategory === 'All' || book.category === currentCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            const booksGrid = document.getElementById('booksGrid');
+            const emptyState = document.getElementById('emptyState');
+            const resultsCount = document.getElementById('resultsCount');
+
+            if (filteredBooks.length === 0) {
+                booksGrid.style.display = 'none';
+                emptyState.style.display = 'block';
+                resultsCount.textContent = 'No books found';
+            } else {
+                booksGrid.style.display = 'grid';
+                emptyState.style.display = 'none';
+                resultsCount.textContent = `Showing ${filteredBooks.length} ${filteredBooks.length === 1 ? 'book' : 'books'}${currentCategory !== 'All' ? ` in ${currentCategory}` : ''}`;
+
+                booksGrid.innerHTML = filteredBooks.map(book => `
+                    <div class="book-card">
+                        ${book.category === 'Rare' ? '<div style="position: absolute; top: 0.5rem; right: 0.5rem; background: var(--accent); color: white; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 9999px;">Rare</div>' : ''}
+                        <div class="book-cover">📖</div>
+                        <h3>${book.title}</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 0.5rem;">by ${book.author}</p>
+                        <div class="rating" style="margin-bottom: 0.5rem;">★ ${book.rating}</div>
+                        <p style="color: var(--muted-foreground); font-size: 0.875rem; margin-bottom: 0.75rem; line-height: 1.4;">A captivating read that will keep you turning pages.</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <span class="price">$${book.price}</span>
+                            <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 0.25rem; ${book.inStock ? 'background: #dcfce7; color: #15803d' : 'background: #fecaca; color: #dc2626'}">${book.inStock ? 'In Stock' : 'Out of Stock'}</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn ${book.inStock ? 'btn-primary' : 'btn-outline'}" style="flex: 1; font-size: 0.875rem; padding: 0.5rem;" ${!book.inStock ? 'disabled' : ''}>
+                                🛒 ${book.inStock ? 'Add to Cart' : 'Notify Me'}
+                            </button>
+                            <button class="btn btn-outline" style="padding: 0.5rem 0.75rem; font-size: 0.875rem;">❤️</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Update active filter button
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            displayBooks();
+        }
+
+        function filterBooks() {
+            currentSearch = document.getElementById('searchInput').value;
+            displayBooks();
+        }
+
+        function clearFilters() {
+            currentCategory = 'All';
+            currentSearch = '';
+            document.getElementById('searchInput').value = '';
+            
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            filterButtons[0].classList.add('active');
+            
+            displayBooks();
+        }
+
+        // Contact form function
+        function submitForm(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+            event.target.reset();
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show home page by default
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
